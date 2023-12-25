@@ -1,52 +1,54 @@
 import discord
 from dotenv import load_dotenv
+import asyncio
+from discord.ext import commands
 import os
-
-class Buffer:
-    def __init__(self, size):
-        self.size = size
-        self.buffer = []
-
-    def add(self, item):
-        if len(self.buffer) >= self.size:
-            self.buffer.pop(0)
-        self.buffer.append(item)
-
-    def get_all(self):
-        return self.buffer
-
-    def clear(self):
-        self.buffer.clear()
 
 
 load_dotenv()  # 加载 .env 文件
 bot_token = os.getenv('BOT_TOKEN')
-# client是跟discord連接，intents是要求機器人的權限
-intents = discord.Intents.default()
-intents.message_content = True
-client = discord.Client(intents = intents)
 
-buffer = Buffer(3)
+intents = discord.Intents.all()
+bot = commands.Bot(command_prefix = "%", intents = intents)
 
-@client.event
+# 當機器人完成啟動時
+@bot.event
 async def on_ready():
-    print(f"name --> {client.user}")
+    print(f"目前登入身份 --> {bot.user}")
+
+# 載入指令程式檔案
+@bot.command()
+async def load(ctx, extension):
+    await bot.load_extension(f"cogs.{extension}")
+    await ctx.send(f"Loaded {extension} done.")
+
+# 卸載指令檔案
+@bot.command()
+async def unload(ctx, extension):
+    await bot.unload_extension(f"cogs.{extension}")
+    await ctx.send(f"UnLoaded {extension} done.")
+
+# 重新載入程式檔案
+@bot.command()
+async def reload(ctx, extension):
+    await bot.reload_extension(f"cogs.{extension}")
+    await ctx.send(f"ReLoaded {extension} done.")
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send("hello world.")
+
+# 一開始bot開機需載入全部程式檔案
+async def load_extensions():
+    for filename in os.listdir("./cogs"):
+        if filename.endswith(".py"):
+            await bot.load_extension(f"cogs.{filename[:-3]}")
+
+async def main():
+    async with bot:
+        await load_extensions()
+        await bot.start(bot_token)
 
 
-@client.event
-async def on_message(message):
-    global buffer
-    # 排除機器人本身的訊息，避免無限循環
-    if message.author == client.user:
-        return
-    
-    if message.content[0] == '!':
-        if "!buffer" in message.content:
-            await message.channel.send(buffer.get_all())
-            #buffer.clear()
-        else:
-            await message.channel.send(message.content)
-    else:
-        buffer.add(message.content)
-
-client.run(bot_token)
+if __name__ == "__main__":
+    asyncio.run(main())
