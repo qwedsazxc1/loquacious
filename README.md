@@ -6,12 +6,18 @@
 Discord 聊天程式
 ## How to get it
 點擊此網址\
-https://discord.com/api/oauth2/authorize?client_id=1181611979312463984&permissions=8&scope=bot \
+[Loquacios™](https://discord.com/api/oauth2/authorize?client_id=1181611979312463984&permissions=8&scope=bot) \
 登入後並選擇要加入的伺服器即可邀請Loquacious discord bot
 ## How to use it
 ### 可用指令
 **!help** :列出所有可用指令\
 **!reply** : 提供三個建議的回覆\
 **!how** : 評價上一則回覆\
-**!cos** : 為聊天對象設定人設(描述越細膩越好，請包含人名、性別、個性、職業)
+**!cos** : 為聊天對象設定人設(描述越細膩越好，請包含人名、性別、個性、職業、所在場所、與人物的關係......)\
+ex $\Rightarrow$  
+人名 : 吳承C\
+性別 : 男\
+個性 : 喜歡逼逼\
+與他的關係 : 一起做專題被背刺
+
  
