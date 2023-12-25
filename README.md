@@ -9,4 +9,9 @@ Discord 聊天程式
 https://discord.com/api/oauth2/authorize?client_id=1181611979312463984&permissions=8&scope=bot \
 登入後並選擇要加入的伺服器即可邀請Loquacious discord bot
 ## How to use it
-
+### 可用指令
+**!help** :列出所有可用指令\
+**!reply** : 提供三個建議的回覆\
+**!how** : 評價上一則回覆\
+**!cos** : 為聊天對象設定人設(描述越細膩越好，請包含人名、性別、個性、職業)
+ 
