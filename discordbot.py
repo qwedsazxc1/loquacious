@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import asyncio
 from discord.ext import commands
 import os
-
+import openai
 
 load_dotenv()  # 加载 .env 文件
 bot_token = os.getenv('BOT_TOKEN')
@@ -43,6 +43,7 @@ async def load_extensions():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
+            openai.api_key = "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"
 
 async def main():
     async with bot:
